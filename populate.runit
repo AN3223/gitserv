@@ -1,0 +1,6 @@
+#!/bin/sh -e
+# runs cronjobs at boot
+/etc/periodic/15min/stagit.sh
+/etc/periodic/15min/cloneblog.sh
+sv down populate
+

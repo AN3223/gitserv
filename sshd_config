@@ -1,0 +1,6 @@
+# vi ft=sshdconfig
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+PasswordAuthentication no
+KexAlgorithms ^sntrup761x25519-sha512@openssh.com

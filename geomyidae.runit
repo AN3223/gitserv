@@ -1,0 +1,4 @@
+#!/bin/sh -e
+[ -r ./conf ] && . ./conf
+exec geomyidae -d -u gopherd -g gopherd -b /var/www/ -l /var/log/geomyidae-"${HOST:-localhost}".log -p "${PORT:-70}" -o 70 -h "${HOST:-127.0.0.1}"
+

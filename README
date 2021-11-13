@@ -1,0 +1,28 @@
+Hosts blog/git/ssh over i2p+tor, also offers gopher
+
+Quickstart:
+	- cat ~/.ssh/*.pub > authorized_keys
+	- make
+	- make run # runs container, publishes SSH port at 8022
+	- make hostnames # prints the .onion and .b32.i2p URLs
+	- make backup # requires lzip, backs up to backup.tar.lz
+
+Creating a git repo:
+# first get a shell in the container:
+	make sh
+# or:
+	ssh root@your_onion_here.onion
+# or:
+	ssh root@your_eepsite_here.i2p
+# or:
+	ssh -p 8022 127.0.0.1
+# and then with that shell, run:
+	git init --bare /git/your_repo_name_here.git
+
+Local git pushing, .git/config:
+[remote "origin"]
+	pushurl = ssh://root@127.0.0.1:8022/git/your_repo_name_here.git
+
+I haven't tested git:// over i2p but it should work. Relevant:
+https://i2p.rocks/blog/self-hosted-git-inside-i2p.html
+

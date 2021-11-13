@@ -1,0 +1,5 @@
+http://mirror.leaseweb.com/alpine/latest-stable/main
+http://mirror.leaseweb.com/alpine/latest-stable/community
+@edge http://mirror.leaseweb.com/alpine/edge/main
+@edgecommunity http://mirror.leaseweb.com/alpine/edge/community
+@testing http://mirror.leaseweb.com/alpine/edge/testing
