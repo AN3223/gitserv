@@ -18,6 +18,7 @@ hostnames:
 	@docker exec -ti gitserv cat /var/lib/tor/gitserv/hostname
 	@docker exec -ti gitserv sh -c 'basename /var/lib/i2pd/destinations/*.0.dat | sed "s/\..*/.b32.i2p/"'
 
+# TODO: Make it possible to restore from a backup
 backup:
 	docker run --rm --volumes-from gitserv \
 		-v git:/data/git -v i2pd:/data/i2pd \

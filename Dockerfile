@@ -7,7 +7,8 @@ RUN apk add --no-cache \
 	mini_httpd geomyidae@testing geomyidae-openrc@testing \
 	tor tor-openrc
 RUN apk add --no-cache i2pd@edgecommunity i2pd-openrc@edgecommunity \
-	boost1.77-filesystem@edge boost1.77-program_options@edge
+	boost1.80-filesystem@edge boost1.80-program_options@edge \
+	libcrypto3@edge libssl3@edge
 
 RUN apk add --no-cache make tcc@testing libgit2-dev musl-dev
 RUN git clone --depth 1 git://git.codemadness.org/stagit-gopher
@@ -23,8 +24,6 @@ RUN sed -i 's|^dir=.*|dir=/var/www| ; s|^nochroot$|chroot| ; /^#logfile=/ { s/^#
 
 RUN rm -r /var/www/*
 RUN ln -s ./.blog/blog ./.blog/phlog ./.blog/data ./.blog/LICENSE /var/www/
-
-RUN passwd -u root # for ssh
 
 COPY torrc /etc/tor/
 COPY i2pd.conf tunnels.conf /etc/i2pd/
