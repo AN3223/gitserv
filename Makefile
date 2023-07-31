@@ -20,13 +20,13 @@ backup:
 		-v git:/data/git -v i2pd:/data/i2pd \
 		-v tor:/data/tor -v ssh:/data/ssh \
 		alpine \
-		tar c -jhvf - /data/ > backup.tar.bz2
+		tar c -hvf - /data/ | lzma -9 > backup.tar.lzma
 
 restore:
 	docker run --rm --volumes-from gitserv \
 		-v git:/data/git -v i2pd:/data/i2pd \
 		-v tor:/data/tor -v ssh:/data/ssh \
-		-v "$$PWD"/backup.tar.bz2:/backup.tar.bz2 \
+		-v "$$PWD"/backup.tar.lzma:/backup.tar.lzma \
 		alpine \
-		tar x --overwrite -vahf backup.tar.bz2
+		tar x --overwrite -vahf backup.tar.lzma
 
