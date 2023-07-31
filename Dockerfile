@@ -2,12 +2,12 @@ FROM alpine
 
 COPY repositories /etc/apk/repositories
 RUN apk add --no-cache \
-	openrc busybox-initscripts runit runit-openrc \
+	openrc busybox-openrc runit runit-openrc \
 	git git-daemon-openrc stagit openssh-server \
 	mini_httpd geomyidae@testing geomyidae-openrc@testing \
 	tor tor-openrc
 RUN apk add --no-cache i2pd@edgecommunity i2pd-openrc@edgecommunity \
-	boost1.80-filesystem@edge boost1.80-program_options@edge \
+	boost1.82-filesystem@edge boost1.82-program_options@edge \
 	libcrypto3@edge libssl3@edge
 
 RUN apk add --no-cache make tcc@testing libgit2-dev musl-dev
