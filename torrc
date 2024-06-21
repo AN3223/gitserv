@@ -1,6 +1,7 @@
 Log notice file /var/log/tor/notices.log
 DataDirectory /var/lib/tor
 BandwidthRate 32 KBytes
+HiddenServicePoWDefensesEnabled 1
 HiddenServiceDir /var/lib/tor/gitserv/
 HiddenServicePort 80 127.0.0.1:80
 HiddenServicePort 70 127.0.0.1:71
