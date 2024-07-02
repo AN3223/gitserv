@@ -1,18 +1,19 @@
-FROM alpine
+FROM alpine:edge
 
 COPY repositories /etc/apk/repositories
+RUN apk upgrade -a --no-cache
 RUN apk add --no-cache \
 	openrc busybox-openrc runit runit-openrc \
 	git git-daemon-openrc stagit openssh-server \
 	mini_httpd geomyidae@testing geomyidae-openrc@testing \
 	tor tor-openrc
-RUN apk add --no-cache i2pd@edgecommunity i2pd-openrc@edgecommunity \
-	boost1.82-filesystem@edge boost1.82-program_options@edge \
-	libcrypto3@edge libssl3@edge
+RUN apk add --no-cache i2pd i2pd-openrc \
+	boost1.84-filesystem boost1.84-program_options \
+	libcrypto3 libssl3
 
-RUN apk add --no-cache make tcc@testing libgit2-dev musl-dev
+RUN apk add --no-cache make gcc libgit2-dev musl-dev
 RUN git clone --depth 1 git://git.codemadness.org/stagit-gopher
-RUN cd stagit-gopher && make CC=tcc && make install
+RUN cd stagit-gopher && make && make install
 RUN rm -rf stagit-gopher
 
 # for running openrc
@@ -25,10 +26,11 @@ RUN sed -i 's|^dir=.*|dir=/var/www| ; s|^nochroot$|chroot| ; /^#logfile=/ { s/^#
 RUN rm -r /var/www/*
 RUN ln -s ./.blog/blog ./.blog/phlog ./.blog/data ./.blog/LICENSE /var/www/
 
-COPY torrc /etc/tor/
-COPY i2pd.conf tunnels.conf /etc/i2pd/
-COPY stagit.sh cloneblog.sh /etc/periodic/15min/
-COPY populate.runit /etc/service/populate/run
+COPY --chown=root:root --chmod=644 torrc /etc/tor/
+RUN chown tor:nogroup /etc/tor/ /etc/i2pd/
+COPY --chown=root:root --chmod=644 i2pd.conf tunnels.conf /etc/i2pd/
+RUN chown i2pd:root /var/lib/tor/ /var/lib/i2pd/
+COPY --chown=root:root --chmod=755 stagit.sh cloneblog.sh /etc/periodic/15min/
 COPY authorized_keys /root/.ssh/
 
 COPY sshd_config /etc/
