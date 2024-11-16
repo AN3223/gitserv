@@ -5,8 +5,9 @@ run:
 	docker run -d --name gitserv --log-driver=syslog --restart=always \
 		-v git:/git -v i2pd:/var/lib/i2pd \
 		-v tor:/var/lib/tor -v ssh:/etc/ssh/ \
-		--cpus=.25 --memory=300m \
+		 --cpus=.25 \
 		-p 8022:22 gitserv
+		# --memory=300m \
 
 sh:
 	docker exec -ti gitserv /bin/sh
